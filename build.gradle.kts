@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.0"
+    `java-gradle-plugin`
+    `maven-publish`
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
@@ -8,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -18,5 +21,14 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
+}
+
+gradlePlugin {
+    plugins {
+        create("compose-color") {
+            id = "$group.compose-colors"
+            implementationClass = "io.github.lukasprediger.compose.ComposeColorPlugin"
+        }
+    }
 }
