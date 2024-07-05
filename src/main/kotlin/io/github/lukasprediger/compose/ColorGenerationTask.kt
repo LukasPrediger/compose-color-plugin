@@ -38,14 +38,15 @@ val tones =
         100,
     )
 
-private const val blue = 0x769CDF
-
 abstract class ColorGenerationTask : DefaultTask() {
     @Input
     val colors: MutableMap<String, String> = mutableMapOf()
 
     @Input
     var generateColorScheme = false
+
+    @Input
+    var packageName = "com.material3.generation.theme"
 
     @OutputDirectory
     val generateSrcDir =
@@ -73,14 +74,14 @@ abstract class ColorGenerationTask : DefaultTask() {
 
         writeColorsFile(
             generateSrcDir.get().asFile,
-            "com.rewedigital.ravenclaw",
+            packageName,
             colorMap,
         )
 
         if (generateColorScheme) {
             writeColorSchemeFile(
                 generateSrcDir.get().asFile,
-                "com.rewedigital.ravenclaw",
+                packageName,
             )
         }
     }
